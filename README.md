@@ -9,7 +9,7 @@ Question: How to Start or Stop this Process?
 
         Removing or Deleting $HOME/Failed_Over_MQ_Instance/FILE_Lock.txt file will stop $HOME/tools/StartStandby.sh
 
-        Stopping $HOME/tools/StartStandby.sh means that Automatic start of Orphaned QMgrs in Standby Mode will cease.
+        Stopping $HOME/tools/StartStandby.sh means that Automatic start of Failed Over QMgrs in Standby Mode will cease.
 
         Process would take few seconds to stop after $HOME/Failed_Over_MQ_Instance/FILE_Lock.txt is deleted
 
@@ -29,8 +29,8 @@ Question: How to Start or Stop this Process?
 
 - TO CHECK:
 
-	ps -fu mqm | grep [S]tartOrphanQMgr
-	ps -fu $USER | grep [S]tartOrphanQMgr	# if you started under $USER. $USER must be in mqm group
+	ps -fu mqm | grep [S]tartStandby
+	ps -fu $USER | grep [S]tartStandby	# if you started under $USER. $USER must be in mqm group
 	
 
 Please go through $HOME/Failed_Over_MQ_Instance/readme.txt to learn a bit more about for Start / Stop operation.
@@ -41,7 +41,7 @@ Please go through $HOME/Failed_Over_MQ_Instance/readme.txt to learn a bit more a
 Upon Start, StartStandby.sh will:
 
 
-1.	Put the Multi Instance Orphan QMgr with Status - "RUNNING ELSEWHERE" to STANDY MODE
+1.	Put the Multi Instance Failed over QMgr(s) with Status - "RUNNING ELSEWHERE" to STANDY MODE
 
 2.	Creates a directory $HOME/Failed_Over_MQ_Instance (if It doesn't exits)  
 
