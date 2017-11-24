@@ -12,11 +12,6 @@
 #   IBM MQ SME
 ###########################################################################################################
 
-Polling_Interval_Value=''
-TIMESTAMP=''
-Polling_Interval_Value=20
-TIMESTAMP=`date "+%Y%h%d_%H_%M_%S"`
-
 if [[ -z grep "mqm" /etc/group | grep "$USER" ]]
 
         echo "
@@ -28,12 +23,14 @@ if [[ -z grep "mqm" /etc/group | grep "$USER" ]]
 
  fi
 
-Set_MQ_Variable() {					# Instantiate these variables
+Set_MQ_Variable() {					# Box all variables in this module
 
+Polling_Interval_Value=''
+TIMESTAMP=''
+Polling_Interval_Value=20
+TIMESTAMP=`date "+%Y%h%d_%H_%M_%S"`
 Activity_Logs=$HOME/Failed_Over_MQ_Instance
-
 export FILE_Lock=${Activity_Logs}/FILE_Lock.txt
-
 ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
 
 MQ_INSTANCE_ELSEW=$(dspmq -o all | \
@@ -42,10 +39,11 @@ MQ_INSTANCE_ELSEW=$(dspmq -o all | \
 
 }
 
-Set_MQ_Variable				# Source MQ Variables
+
+Set_MQ_Variable				# Instantiate Variables
 
 
-mkdir -p ${Activity_Logs}		# Create dir if it doesn't exits
+mkdir -p ${Activity_Logs}		# Create dir
 
 
 

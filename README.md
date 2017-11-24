@@ -1,26 +1,33 @@
 # Readme.txt By Raman Kathpalia 
 # IBM MQ SME
 
+Activity_Logs=$HOME/Failed_Over_MQ_Instance
+export FILE_Lock=${Activity_Logs}/FILE_Lock.txt
+ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
+
+MQ_INSTANCE_ELSEW=$(dspmq -o all | \
+        sed '/(Running elsewhere)/!d' | \
+        awk -F '[()]' '{print $2}')
+
+
 Question: How to Start or Stop this Process?
 
 # TO STOP:
 
-        To Stop this process, simply delete $HOME/Failed_Over_MQ_Instance/FILE_Lock.txt
+        To gracefully Stop this process, simply delete $FILE_Lock
 
-        Removing or Deleting $HOME/Failed_Over_MQ_Instance/FILE_Lock.txt file will stop $HOME/tools/StartStandby.sh
+	Code to Stop :       [   rm $FILE_Lock    ]
 
-        Stopping $HOME/tools/StartStandby.bash means that Automatic start of Failed Over QMgrs in Standby Mode will cease.
+        Process would take few seconds to stop after $FILE_Lock is deleted. Depending upon Polling_Interval_Value set by you. If left default, process can take upto 20 
+	seconds to stop. 
 
-        Process would take few seconds to stop after $HOME/Failed_Over_MQ_Instance/FILE_Lock.txt is deleted
-
-        Code to Stop :       [   rm $HOME/Failed_Over_MQ_Instance/FILE_Lock.txt    ]
+	kill is a valid and can be used to kill this daemon
 
 # TO START:
 
        To start again, Initiate StartStandby.bash
 
-       Code to Start:       [ nohup $HOME/tools/StartStandby.bash > $HOME/Failed_Over_MQ_Instance/nohup.out & ]
-
+       Code to Start:  [ nohup $HOME/MQ_Scripts/StartStandby.bash > $HOME/Failed_Over_MQ_Instance/nohup.out & ]
 
        **NOTE:	If this is very first time you are starting this process on this server, do execute command underneath before regular start
 
@@ -41,9 +48,9 @@ Question: How to Start or Stop this Process?
 
 2.	Creates a directory $HOME/Failed_Over_MQ_Instance (if It doesn't exits)  
 
-3. 	--- (depracated feature)
+3. 	--- (deprecated feature)
 
-4. 	Creates an empty Lock File - $HOME/Failed_Over_MQ_Instance/FILE_Lock.txt
+4. 	Creates an empty Lock File - $FILE_Lock
 
 5.	Logs the all activity {Failover activity on this server} with time stamp into a file for
 	later review.
