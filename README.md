@@ -1,16 +1,15 @@
 # Readme.txt By Raman Kathpalia 
 # IBM MQ SME
 
+# Variables used
+
 Activity_Logs=$HOME/Failed_Over_MQ_Instance
-export FILE_Lock=${Activity_Logs}/FILE_Lock.txt
+
+FILE_Lock=${Activity_Logs}/FILE_Lock.txt
+
 ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
 
-MQ_INSTANCE_ELSEW=$(dspmq -o all | \
-        sed '/(Running elsewhere)/!d' | \
-        awk -F '[()]' '{print $2}')
-
-
-Question: How to Start or Stop this Process?
+# Question: How to Start or Stop this Process?
 
 # TO STOP:
 
@@ -18,8 +17,8 @@ Question: How to Start or Stop this Process?
 
 	Code to Stop :       [   rm $FILE_Lock    ]
 
-        Process would take few seconds to stop after $FILE_Lock is deleted. Depending upon Polling_Interval_Value set by you. If left default, process can take upto 20 
-	seconds to stop. 
+        Process would take few seconds to stop after $FILE_Lock is deleted. 
+	It Depends on Polling_Interval_Value set by you. If left default, process can take upto 20 seconds to stop. 
 
 	kill is a valid and can be used to kill this daemon
 
@@ -29,7 +28,7 @@ Question: How to Start or Stop this Process?
 
        Code to Start:  [ nohup $HOME/MQ_Scripts/StartStandby.bash > $HOME/Failed_Over_MQ_Instance/nohup.out & ]
 
-       **NOTE:	If this is very first time you are starting this process on this server, do execute command underneath before regular start
+       **NOTE:	If this is very first time you are starting this process, you may need to create a dir first.
 
 	[ mkdir -p $HOME/Failed_Over_MQ_Instance ]		# Creates a directory  if does not exits.
 	
@@ -41,7 +40,7 @@ Question: How to Start or Stop this Process?
 	ps -fu $USER | grep [S]tartStandby	# if you started under $USER. $USER must be in mqm group
 	
 
-# Upon Start, StartStandby.bash will:
+# What does this daemon do?
 
 
 1.	Put the Multi Instance Failed over QMgr(s) with Status - "RUNNING ELSEWHERE" to STANDY MODE
