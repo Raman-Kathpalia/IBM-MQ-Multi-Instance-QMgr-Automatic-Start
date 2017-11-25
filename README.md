@@ -3,13 +3,16 @@
 
 # Introduction:
 
-This bash solution can be deployed on IBM MQ nodes where Multi-Instance Queue Managers are configured to run. 
+This bash solution can be deployed on IBM MQ nodes where Multi-Instance Queue Managers are configured.
+
+Solution is tested on RHEL/CentOS 6 and 7 with MQ 7.5.X.X and 8.XXX
 
 This daemon runs 24/7/365 and puts “failed over MI QMgr” which has a status - "Running elsewhere" to "Running as Standby"  thus making it  - Ready to takeover, should a fail back occurs. 
 
-Every activity by daemon is logged thus giving an audit trail
+Each and Every activity by daemon is logged thus giving an audit trail
 
-CPU consumption is very low (< 0.00001% with 2 CPU Intel Zeon) with aggressive polling(10 sec). This solution is tested on RHEL/CentOS.
+CPU consumption is very low (< 0.00001%) as observed in 2 CPU Intel Zeon machine with aggressive polling(10 seconds)
+
 
 # Variables used in original script (for reference here)
 
@@ -19,7 +22,9 @@ FILE_Lock=$Activity_Logs/FILE_Lock.txt
 
 ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
 
-*Note You can change $HOME dir to somewhere else.
+Polling_Interval_Value=20
+
+*Note You can change $HOME dir or Polling_Interval_Value.
 
 # Question: How to Start or Stop this Process?
 
@@ -29,7 +34,8 @@ ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
 
 	Code :       [   rm $FILE_Lock    ]
 
-        Process would take few seconds to stop after $FILE_Lock is deleted depending upon on Polling_Interval_Value set by 	   you. By default, Polling_Interval_Value = 20 sec
+        Process would take few seconds to stop after $FILE_Lock is deleted depending upon on Polling_Interval_Value set. 
+	By default, Polling_Interval_Value = 20 sec
 
 	kill is a valid and can be used to kill this daemon for instant gratification. 
 
@@ -37,16 +43,13 @@ ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
 
         Code to Start:  [ nohup /Path/to/script/StartStandby.bash > $Activity_Logs/nohup.out & ]
 
-       **NOTE:	If this is very first time you are starting this process, you may need to create a dir.
-
-	[ mkdir -p $Activity_Logs ]		
 	
 
 --> Process Status CHECK:
 
 	ps -fu mqm | grep [S]tartStandby
 	
-	ps -fu $USER | grep [S]tartStandby	# if you started under $USER. $USER must be in mqm group
+	ps -fu $LOGNAME | grep [S]tartStandby	# if you started under $LOGNAME. $LOGNAME must be in mqm group
 	
 
 # What does this daemon do?
@@ -67,10 +70,10 @@ ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
 
 6. 	If you have to stop MQ activity using [endmqm]; this process wouldn't interfere. StartStandby.bash acts only on 	QMgr with STATUS(Running elsewhere). But it's a good idea to stop this process as well.
 
-8.	StartStandby.bash polls/checks every 20 seconds. You can edit that in script by altering the Polling_Interval_Value 	    variable.
+7.	StartStandby.bash polls/checks every 20 seconds. You can edit that in script by altering the Polling_Interval_Value 	    variable.
 
 
-Extra info : How to failover/stop MI QMgr - 
+Extra info(from IBM) : How to failover/stop MI QMgr - 
 
 	Failover all MI QMgrs 		[endmqm -s QMgrName]
 

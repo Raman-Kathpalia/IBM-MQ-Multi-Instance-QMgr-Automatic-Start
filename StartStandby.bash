@@ -12,21 +12,42 @@
 #   IBM MQ SME
 ###########################################################################################################
 
-if [[ -z grep "mqm" /etc/group | grep "$USER" ]]
+if [[ -z $(grep "mqm" /etc/group | grep "$LOGNAME") ]]; then
 
         echo "
 
-	$USER must be in mqm group
+	Cannot start 
 
+	$LOGNAME must be in mqm group
+
+ヽ
+　 ＼＼ Λ＿Λ
+　　 ＼(˘ω˘)
+　　　 >　⌒ヽ
+　　　/ 　 へ＼
+　　 /　　/　＼＼
+　　 ﾚ　ノ　　 ヽ_つ
+　　/　/
+　 /　/|
+　(　(ヽ
+　|　|、＼
+　| 丿 ＼ ⌒)
+　| |　　) /
+  ノ)    Lﾉ
+(_／
+	
+                                                    
         "
            exit 10
 
  fi
 
+
 Set_MQ_Variable() {					# Box all variables in this module
 
 Polling_Interval_Value=''
 TIMESTAMP=''
+#
 Polling_Interval_Value=20
 TIMESTAMP=`date "+%Y%h%d_%H_%M_%S"`
 Activity_Logs=$HOME/Failed_Over_MQ_Instance
@@ -66,7 +87,7 @@ if [[ -n ${MQ_INSTANCE_ELSEW[@]} ]]; then		# If failed over Queue-Manager are fo
 *********************************************************************
 $TIMESTAMP : Initiating $QMgr in Standby.
 *********************************************************************
-     " >> $ACTIVITY_FILE				#CAPTURE ANY ACTIVITY PERFORMED WITH TIMESTAMP
+     " >> $ACTIVITY_FILE				#CAPTURE ACTIVITY PERFORMED; WITH TIMESTAMP
 
 	strmqm -x $QMgr	>> $ACTIVITY_FILE 2>&1		
   done
