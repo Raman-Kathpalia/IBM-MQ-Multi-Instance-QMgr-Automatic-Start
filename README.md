@@ -1,20 +1,21 @@
 # Readme.txt By Raman Kathpalia 
 # IBM MQ SME
 
+# This is a high level solution. You're allowed to use as is or customize it based upon your needs.
+
 # Introduction:
 
 This bash solution can be deployed on IBM MQ nodes where Multi-Instance Queue Managers are configured.
 
 Solution is tested on RHEL/CentOS 6 and 7 with MQ 7.5.X.X and 8.XXX
 
-This daemon runs 24/7/365 and puts “failed over MI QMgr” which has a status - "Running elsewhere" to "Running as Standby"  thus making it  - Ready to takeover, should a fail back occurs. 
+This daemon 
+-	puts Qmgr with status “Running elsewhere” to "Running as Standby". Thus secondary QMgr is Ready to takeover if a fail back occurs. 
+-	Audits every activity performed
+-	CPU consumption is low (< 0.01%) as observed in 2 CPU Intel Zeon machine with aggressive polling. (few seconds)
 
-Each and Every activity by daemon is logged thus giving an audit trail
 
-CPU consumption is very low (< 0.00001%) as observed in 2 CPU Intel Zeon machine with aggressive polling(10 seconds)
-
-
-# Variables used in original script (for reference here)
+# (Just reference here)Variables used in original script 
 
 Activity_Logs=$HOME/Failed_Over_MQ_Instance
 
@@ -61,14 +62,12 @@ Polling_Interval_Value=20
 
 3. 	--- (deprecated feature)
 
-4. 	Creates an empty Lock File - $FILE_Lock
+4. 	--- (deprecated feature
 
-5.	Logs the all activity {Failover activity on this server} with time stamp into a file for
-	later review.
+5.	Logs all Failover activity on node with time stamp for later review.
 	
-	FileName - $ACTIVITY_FILE
 
-6. 	If you have to stop MQ activity using [endmqm]; this process wouldn't interfere. StartStandby.bash acts only on 	QMgr with STATUS(Running elsewhere). But it's a good idea to stop this process as well.
+6. 	If you have to stop MQ activity using [endmqm]; this process wouldn't interfere. StartStandby.bash acts only on QMgr with STATUS(Running elsewhere). But it's a good idea to stop this process as well.
 
 7.	StartStandby.bash polls/checks every 20 seconds. You can edit that in script by altering the Polling_Interval_Value 	    variable.
 
