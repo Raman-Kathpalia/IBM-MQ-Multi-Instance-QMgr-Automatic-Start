@@ -32,7 +32,7 @@ Polling_Interval_Value=20
 
  To gracefully Stop this process, simply delete $FILE_Lock
 
-   `rm $FILE_Lock`   
+   	rm $FILE_Lock
 
  Process would take few seconds to stop after `$FILE_Lock` is deleted depending upon on `Polling_Interval_Value set`. By default, `Polling_Interval_Value = 20 sec`
 
@@ -40,13 +40,13 @@ Polling_Interval_Value=20
 
 ---> TO START:
 
-  `nohup /Path/to/script/StartStandby.bash > $Activity_Logs/nohup.out &`
+  	nohup /Path/to/script/StartStandby.bash > $Activity_Logs/nohup.out &
 	
 --> Process Status CHECK:
 
-   `ps -fu mqm | grep [S]tartStandby`
+   	ps -fu mqm | grep [S]tartStandby
 	
-   `ps -fu $LOGNAME | grep [S]tartStandby       	# if started under user: $LOGNAME. $LOGNAME must be in mqm group`
+   	ps -fu $LOGNAME | grep [S]tartStandby       	#if started under user: $LOGNAME. $LOGNAME must be in mqm group
 	
 
 # What does this daemon do?
