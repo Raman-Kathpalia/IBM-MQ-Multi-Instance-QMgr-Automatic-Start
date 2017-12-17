@@ -1,6 +1,5 @@
 # Readme.txt By Raman Kathpalia 
-# IBM MQ SME
-
+# [IBM MQ SME](www.linkedin.com/in/ramankathpalia10)
 # This is a high level solution. You're allowed to use as is or customize it based upon your needs.
 
 # Introduction:
@@ -50,7 +49,7 @@ Polling_Interval_Value=20
 
 	ps -fu mqm | grep [S]tartStandby
 	
-	ps -fu $LOGNAME | grep [S]tartStandby	# if you started under $LOGNAME. $LOGNAME must be in mqm group
+	ps -fu $LOGNAME | grep [S]tartStandby       	# if started under $LOGNAME. $LOGNAME must be in mqm group
 	
 
 # What does this daemon do?
@@ -62,12 +61,12 @@ Polling_Interval_Value=20
 
 3. 	--- (deprecated feature)
 
-4. 	--- (deprecated feature
+4. 	--- (deprecated feature)
 
 5.	Logs all Failover activity on node with time stamp for later review.
 	
 
-6. 	If you have to stop MQ activity using [endmqm]; this process wouldn't interfere. StartStandby.bash acts only on QMgr with STATUS(Running elsewhere). But it's a good idea to stop this process as well.
+6. 	If you have to stop MQ activity using [endmqm](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_9.0.0/com.ibm.mq.ref.adm.doc/q083320_.htm); this process wouldn't interfere. StartStandby.bash acts only on QMgr with STATUS(Running elsewhere). But it's a good idea to stop this process as well.
 
 7.	StartStandby.bash polls/checks every 20 seconds. You can edit that in script by altering the Polling_Interval_Value 	    variable.
 
