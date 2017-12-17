@@ -4,7 +4,7 @@
 
 # Introduction:
 
-This bash solution can be deployed on IBM MQ nodes where Multi-Instance Queue Managers are configured.
+This bash solution can be deployed on IBM MQ nodes where [Multi-Instance Queue Managers](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_8.0.0/com.ibm.mq.con.doc/q018140_.htm) are configured.
 
 Solution is tested on RHEL/CentOS 6 and 7 with MQ 7.5.X.X and 8.XXX
 
@@ -14,17 +14,16 @@ This daemon
 -	CPU consumption is low (< 0.01%) as observed in 2 CPU Intel Zeon machine with aggressive polling. (few seconds)
 
 
-# (Just reference here)Variables used in original script 
+*Variables used in original script (Just for reference)
 
+```python
 Activity_Logs=$HOME/Failed_Over_MQ_Instance
-
 FILE_Lock=$Activity_Logs/FILE_Lock.txt
-
 ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
-
 Polling_Interval_Value=20
+```
 
-*Note You can change $HOME dir or Polling_Interval_Value.
+*Note You can change location $HOME dir  or Polling_Interval_Value.
 
 # Question: How to Start or Stop this Process?
 
