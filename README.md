@@ -46,7 +46,7 @@ Polling_Interval_Value=20
 
    `ps -fu mqm | grep [S]tartStandby`
 	
-   `ps -fu $LOGNAME | grep [S]tartStandby`       	# if started under $LOGNAME. $LOGNAME must be in mqm group
+   `ps -fu $LOGNAME | grep [S]tartStandby       	# if started under user: $LOGNAME. $LOGNAME must be in mqm group`
 	
 
 # What does this daemon do?
