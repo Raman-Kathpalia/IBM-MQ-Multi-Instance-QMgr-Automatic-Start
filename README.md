@@ -8,8 +8,9 @@ This bash solution can be deployed on IBM MQ nodes where [Multi-Instance Queue M
 
 Solution is tested on RHEL/CentOS 6 and 7 with MQ 7.5.X.X and 8.XXX
 
-This daemon 
--	puts Qmgr with status “Running elsewhere” to "Running as Standby". Thus secondary QMgr is Ready to takeover if a fail back occurs. 
+# What does this process/daemon do?
+
+-	Puts QMgr with status “Running elsewhere” to "Running as Standby". Thus secondary QMgr is Ready to takeover if a fail back occurs. 
 -	Audits every activity performed
 -	CPU consumption is low (< 0.01%) as observed in 2 CPU Intel Zeon machine with aggressive polling. (few seconds)
 
@@ -31,16 +32,16 @@ Polling_Interval_Value=20
 
         To gracefully Stop this process, simply delete $FILE_Lock
 
-	Code :       [   rm $FILE_Lock    ]
+	          rm $FILE_Lock   
 
-        Process would take few seconds to stop after $FILE_Lock is deleted depending upon on Polling_Interval_Value set. 
+        Process would take few seconds to stop after `$FILE_Lock` is deleted depending upon on `Polling_Interval_Value set`. 
 	By default, Polling_Interval_Value = 20 sec
 
-	kill is a valid and can be used to kill this daemon for instant gratification. 
+	kill is a valid and can be used to stop this daemon for instant gratification. 
 
 ---> TO START:
 
-        Code to Start:  [ nohup /Path/to/script/StartStandby.bash > $Activity_Logs/nohup.out & ]
+                 nohup /Path/to/script/StartStandby.bash > $Activity_Logs/nohup.out &
 
 	
 
@@ -56,7 +57,7 @@ Polling_Interval_Value=20
 
 1.	Put the Multi Instance Failed over QMgr(s) with Status - "RUNNING ELSEWHERE" to STANDY MODE
 
-2.	Creates a directory $Activity_Logs (if It doesn't exits)  
+2.	Creates a directory $Activity_Logs (if it doesn't exits)  
 
 3. 	--- (deprecated feature)
 
@@ -70,7 +71,8 @@ Polling_Interval_Value=20
 7.	StartStandby.bash polls/checks every 20 seconds. You can edit that in script by altering the Polling_Interval_Value 	    variable.
 
 
-[How to failover MI QMgr manually](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_7.5.0/com.ibm.mq.con.doc/q018330_.htm)
+
+[How to failover Multi-Instance QMgr manually](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_7.5.0/com.ibm.mq.con.doc/q018330_.htm)
 
 	Failover MI QMgr		[endmqm -s QMgrName]
 
