@@ -72,13 +72,13 @@ Polling_Interval_Value=20
 7.	StartStandby.bash polls/checks every 20 seconds. You can edit that in script by altering the Polling_Interval_Value 	    variable.
 
 
-Extra info(from IBM) : How to failover/stop MI QMgr - 
+[How to failover/stop MI QMgr manually]("https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_7.5.0/com.ibm.mq.con.doc/q018330_.htm")
 
-	Failover all MI QMgrs 		[endmqm -s QMgrName]
+	Failover MI QMgr		[endmqm -s QMgrName]
 
-	Stop All Orphaned MI QMgrs      [endmqm -x QMgrName]
+	Stop Orphaned MI QMgr     	[endmqm -x QMgrName]
 
-	Stop SI QMgrs 			[endmqm -i QMgrName]
+	Stop SI QMgr			[endmqm -i QMgrName]
 	
 More extra info:
 
