@@ -60,19 +60,9 @@ MQ_INSTANCE_ELSEW=$(dspmq -o all | \
 
 }
 
-
 Set_MQ_Variable				# Instantiate Variables
 
-
 mkdir -p ${Activity_Logs}		# Create dir
-
-
-
-if [[ ! -f $FILE_Lock ]]; then		# Create an empty lock file during process initiation if one doesn't exits
-
- 	touch $FILE_Lock
-fi
-
 
 Start_Standby() {
 
@@ -97,4 +87,4 @@ fi
 }
 
 	while [ -e $FILE_Lock ]; 
-		do Start_Standby; sleep $Polling_Interval_Value; done &	# Keep Checking
+		do Start_Standby; sleep $Polling_Interval_Value; done &	            # Keep polling
