@@ -1,10 +1,10 @@
-#! /bin/bash
+#!/bin/bash
 
 ##########################################################################################################
-#   Designed to run as a daemon
+#   Designed to run as a daemon|process
 #   Puts failed-over Multi-Instance QMgrs - with status - "Running Elsewhere" into Standby Mode.
 #   Tested on rpm based Linux 6 and 7 [RHEL and CentOS]
-#   Please go through README.md to understand more.
+#   Please go through README.md for more information.
 #   
 #   by -
 #
@@ -36,7 +36,7 @@ if [[ -z $(grep "mqm" /etc/group | grep "$LOGNAME") ]]; then
   ノ)    Lﾉ
 (_／
 	
-                                                    
+    Else you continue to see a bashing dancing cat!!!                                                 
         "
            exit 10
 
