@@ -3,7 +3,8 @@
 ##### This is a high level solution. You're allowed to use as is or customize it based upon your needs.
 
 #### Introduction: 
-For organisations who operate Multi-Instance QMgrs as a [HA solution for IBM MQ](https://www.ibm.com/support/knowledgecenter/SSFKSJ_7.5.0/com.ibm.mq.con.doc/q017830_.htm), often notice that once MQ failover occurs, it leaves behind a defunct QMgr not capable to takeover should a fail back reoccurs. Autostart feature of defunct QMgr is not available in IBM MQ. This is by design as one should manually introspect the reason of failover, fix it and start the defunct QMgr to standby mode. 
+
+For organisations who operate Multi-Instance QMgrs as a [HA solution for IBM MQ](https://www.ibm.com/support/knowledgecenter/SSFKSJ_7.5.0/com.ibm.mq.con.doc/q017830_.htm) often notice that once MQ failover occurs, it leaves behind a defunct QMgr not capable to takeover should a fail back reoccurs. Autostart feature of defunct QMgr is not available in IBM MQ. This is by design as one should manually introspect the reason of failover, fix it and start the defunct QMgr to standby mode. 
 
 So far so good. 
 
@@ -24,7 +25,7 @@ Same process should run on both Active and Standby nodes.
 
 Solution is tested on Linux - RHEL(6,7) and CentOS with MQ 7.5.X.X and 8.XXX
 
-##### Having this piece of code with multi-Instance MQ, One can bring HA for MQ closer to a Vendor based HA solutions (RedHat or Veritas clustering).
+##### Having this piece of code with multi-Instance MQ, One can bring HA for MQ closer to a Vendor based [traditional HA](https://en.wikipedia.org/wiki/High-availability_cluster#/media/File:2nodeHAcluster.png) solutions - [RHCS](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/cluster_suite_overview/s1-rhcs-intro-cso) or [VCS](https://symwisedownload.symantec.com/resources/sites/SYMWISE/content/live/SOLUTIONS/26000/TECH26832/en_US/260419.pdf?__gda__=1515048753_ffed058e8081bdeb51b7cc85fd1d6c00) etc.
 
 ##### What does this process/daemon do? (High level) 
 
@@ -33,22 +34,9 @@ Solution is tested on Linux - RHEL(6,7) and CentOS with MQ 7.5.X.X and 8.XXX
 	-	CPU consumption by this process is low (< 0.01%) as observed in 2 CPU Intel Zeon machine with aggressive polling. (10 seconds)
 
 
-*Variables used in original script that could be tuned
+#### Question: How to Start or Stop this Process?
 
-```javascript
-Activity_Logs=$HOME/Failed_Over_MQ_Instance
-FILE_Lock=$Activity_Logs/FILE_Lock.txt
-ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
-Polling_Interval_Value=20
-```
-
-	$HOME is where MQ Activity logs will be collected for review later
-	Polling_Interval_Value is how frequently you want this solution to poll and look for defunct QMgr.
-###### 	Note You can change location `$HOME` dir  or `Polling_Interval_Value` in actual script
-
-##### Question: How to Start or Stop this Process?
-
-##### TO START:
+##### *TO START:*
 
 	touch $FILE_Lock
   	nohup /Path/to/script/StartStandby.bash > $Activity_Logs/nohup.out &
@@ -56,7 +44,7 @@ Polling_Interval_Value=20
 #####     Note: Process won't start unless lock file is present. This is a safety measure against inadvertent start.
 #####     Any attempt to start (with or without nohup) without `$FILE_LOCK` being present is reported in `$ACTIVITY_FILE` with timestamp
 	
-##### TO STOP:
+##### *TO STOP:*
 
  To gracefully Stop this process, simply delete `$FILE_Lock`
 
@@ -67,7 +55,7 @@ Polling_Interval_Value=20
 
  `kill` is valid and can be used to stop this daemon for instant gratification. 
  
-##### To CHECK:
+##### *To CHECK:*
 
    	ps -fu mqm | grep [S]tartStandby
 	
@@ -89,7 +77,7 @@ Polling_Interval_Value=20
 
 5.	Logs all Failover MQ activity on both nodes with timestamp for review later.
 	
-6. 	If you have to stop MQ normally/immediately using [endmqm](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_9.0.0/com.ibm.mq.ref.adm.doc/q083320_.htm); this process wouldn't interfere. QMgrs (Active and Standby) would end normally on both nodes. StartStandby.bash acts only on QMgr with STATUS(Running elsewhere). But it may be a a good idea to stop this process as well if you're servicing [IBM MQ](http://www-03.ibm.com/software/products/en/ibm-mq) 
+6. 	If you have to stop MQ normally/immediately using [endmqm](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_9.0.0/com.ibm.mq.ref.adm.doc/q083320_.htm); this process wouldn't interfere. QMgrs (Active and Standby) would end normally on both nodes. StartStandby.bash acts only on QMgr with STATUS(Running elsewhere). But it may be a a good idea to stop this process as well if you're servicing IBM MQ
 
 7. StartStandby.bash polls/checks every 20 seconds. You can edit that in script by altering the Polling_Interval_Value 	      variable.
 
@@ -103,7 +91,29 @@ Polling_Interval_Value=20
 
 
 
-> Side note:  [How to manually failover Multi-Instance Queue Manager](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_7.5.0/com.ibm.mq.con.doc/q018330_.htm)
+###### *Variables used in original script that could be tuned*
+
+```javascript
+Activity_Logs=$HOME/Failed_Over_MQ_Instance
+FILE_Lock=$Activity_Logs/FILE_Lock.txt
+ACTIVITY_FILE=${Activity_Logs}/Activity_trail.txt
+Polling_Interval_Value=20
+```
+
+	$HOME is where MQ Activity logs will be collected for review later
+	Polling_Interval_Value is how frequently you want this solution to poll and look for defunct QMgr.
+	
+###### 	Note You can change location `$HOME` or `Polling_Interval_Value` in actual script
+
+
+
+
+#### *NOTES:*
+##### To learn more on IBM MQ HA, visit [here](http://www.redbooks.ibm.com/redbooks/pdfs/sg247839.pdf)
+
+##### For curious minds: [VCS Vs. Oracle RAC](https://www.quora.com/HA-Veritas-Cluster-Service-VCS-Vs-Oracle-RAC)
+
+###### [How to manually failover Multi-Instance Queue Manager](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_7.5.0/com.ibm.mq.con.doc/q018330_.htm)
 
 	Failover MI QMgr			[endmqm -s QMgrName]
 
