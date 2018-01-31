@@ -25,7 +25,7 @@ The same process should run on both Active and Standby nodes.
 
 The solution is tested on Linux - RHEL(6,7) and CentOS with MQ 7.5.X.X and 8.XXX
 
-##### Having this piece of code with multi-Instance MQ, One can bring HA for MQ closer to a Vendor based [traditional HA](https://en.wikipedia.org/wiki/High-availability_cluster#/media/File:2nodeHAcluster.png) solutions - [RHCS](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/cluster_suite_overview/s1-rhcs-intro-cso) or [VCS](https://symwisedownload.symantec.com/resources/sites/SYMWISE/content/live/SOLUTIONS/26000/TECH26832/en_US/260419.pdf?__gda__=1515048753_ffed058e8081bdeb51b7cc85fd1d6c00) etc.
+##### Having this piece of code with multi-Instance MQ, One can bring HA for MQ closer to a Vendor based [traditional HA](https://en.wikipedia.org/wiki/High-availability_cluster#/media/File:2nodeHAcluster.png) solutions - [RedHat Cluster Suite](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/cluster_suite_overview/s1-rhcs-intro-cso) or [VCS with MQ](https://sort.veritas.com/public/documents/sfha/6.0.2/linux/productguides/html/vha_webspheremq_install/ch04s07.htm) to name a few.
 
 ##### What does this process/daemon do? (High level) 
 
@@ -90,7 +90,7 @@ The solution is tested on Linux - RHEL(6,7) and CentOS with MQ 7.5.X.X and 8.XXX
 
 ###### *Variables used in original script that could be tuned*
 
-```javascript
+```
 FAILOVER_ACTIVITY_DIR=$HOME/MI
 LOCK_FILE=$FAILOVER_ACTIVITY_DIR/LOCK_FILE.txt
 ACTIVITY_FILE=${FAILOVER_ACTIVITY_DIR}/Activity_trail.txt
@@ -106,7 +106,7 @@ POLLING_INTERVAL=20
 
 
 #### *NOTES:*
-##### To learn more on IBM MQ HA, visit [here](http://www.redbooks.ibm.com/redbooks/pdfs/sg247839.pdf)
+##### To learn more on IBM MQ High Availability, visit [here](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_7.5.0/com.ibm.mq.con.doc/q017830_.htm)
 
 ##### For curious minds: [VCS Vs. Oracle RAC](https://www.quora.com/HA-Veritas-Cluster-Service-VCS-Vs-Oracle-RAC)
 
