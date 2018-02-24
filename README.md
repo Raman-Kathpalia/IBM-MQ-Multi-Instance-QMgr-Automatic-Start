@@ -1,9 +1,10 @@
+### This is a Readme file for program - MQ_Multi_Instance_Monitor.bash
+
 ### MQ_Multi_Instance_Monitor.bash is enhanced version of StartStandby.bash
 #### (offering same core functionality as StartStandby.bash)
 
-### This is a Readme file for program - MQ_Multi_Instance_Monitor.bash
-By - 
-### [Raman Kathpalia. IBM MQ SME and Automation Enthusiast](https://www.linkedin.com/in/RamanKathpalia) 
+
+### By -  [Raman Kathpalia. IBM MQ SME & an Automation Enthusiast](https://www.linkedin.com/in/RamanKathpalia) 
 ### This is a high-level solution. You're allowed to use as is or customize it. No Warranties.
 
 ### *What is new in MQ_Multi_Instance_Monitor.bash (Compared to StartStandby.bash)*
@@ -11,7 +12,7 @@ By -
 ##### 	1. Simple Operation. [start | stop | check] Arguments introduced
 #####	2. Ease of putting the program into Maintenance mode 
 ##### 	3. Single threaded operation. Multi-threaded operation is an overkill. This program doesn't spawns multiple threads
-#####	4. Penguin replaces the cow. For lactose intolerant Linux lovers :) 
+#####	4. Penguin replaces the crazy cat :) 
 
 
 ### Introduction: 
@@ -45,12 +46,19 @@ The solution is tested on Linux - RedHat Enterprise Linux and CentOS versions - 
 -	Writes every MQ fail-over activity performed to Log for later review/audit.
 -	CPU consumption by this process is low (< 0.01%) as observed in 2 CPU Intel Zeon machine with aggressive polling. (10 seconds)
 
-### What is needed to Install this program:
+### How to Install this program?
 
-1. Copy MQ_Multi_Instance_Monitor.bash on both nodes where Multi-Instance Queue manager are running (Active and Standby) at your chosen location
-2. Default directory, where all data by this script is gathered, is in `$HOME/MI`. If you are happy with this location, no change needed. Else see below *Variables used in original script that could be altered*
-3. By default, this process polls every 20 seconds. If you're happy with this value, no change needed. Else see below *Variables used in original script that could be altered*
-4. Start the program on both nodes. 
+-	Copy MQ_Multi_Instance_Monitor.bash on both nodes where MQ Multi-Instance Queue manager (Active and Standby) are running.
+*(Location doesn't matter)*
+
+-	Start the program on both nodes. 
+
+*Optional Customization:*
+
+-	Default directory, where all data by this script is gathered, is in `$HOME/MI`. If you are happy with this location, no change needed. Else, see below *Variables used in original script that could be altered*
+
+ -	By default, this process polls every 20 seconds. If you're happy with this value, no change needed. Else, see below *Variables used in original script that could be altered*
+
 
 
 ### Question: How to Start or Stop this Process?
