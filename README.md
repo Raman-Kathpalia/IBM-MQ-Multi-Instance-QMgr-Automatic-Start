@@ -178,13 +178,13 @@ mqm  19598  12:50
 
 5.	Logs all Failover MQ activity on both nodes with the timestamp for review later.
 	
-6. 	If you have to stop MQ normally/immediately using [endmqm](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_9.0.0/com.ibm.mq.ref.adm.doc/q083320_.htm); this process wouldn't interfere. QMgrs (Active and Standby) would end normally on both nodes. StartStandby.bash acts only on QMgr with STATUS(Running elsewhere). But it may be a good idea to stop this process as well if you're servicing IBM MQ
+6. 	If you have to stop QMgr normally/immediately using [endmqm](https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_9.0.0/com.ibm.mq.ref.adm.doc/q083320_.htm); this process wouldn't interfere. QMgrs (Active and Standby) would end normally on both nodes. MQ_Multi_Instance_Monitor.bash acts only on QMgr with STATUS(Running elsewhere). But it may be a good idea to stop this process as well if you're servicing IBM MQ
 
-7. StartStandby.bash polls/checks every 20 seconds. You can edit that in the script by altering the `POLLING_INTERVAL` variable.
+7. Service/Daemon MQ_Multi_Instance_Monitor.bash polls every 20 seconds. You can edit that in the script by altering the `POLLING_INTERVAL` variable.
 
-8. Single Instance QMgrs are not affected. 
+8. Single Instance QMgrs are not affected by this service. 
 
-9. To Check CPU/Memory usage in real-time by process; do `top -p PID` where `PID` == process ID of StartStandby.bash. 
+9. To Check CPU/Memory usage in real-time by a process; do `top -p PID` where `PID` == process ID. Put in the PID of MQ_Multi_Instance_Monitor.bash 
 	
 #### 10. No code change necessary from one node to another irrespective of Queue Managers Names on individual boxes. 
 ####     No hard-coding of QMgrNames needed anywhere in solution.
